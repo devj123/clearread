@@ -138,8 +138,8 @@
   }
 
   function applyStyleVars() {
-    els.output.style.setProperty("--letter-spacing", state.letterSpacing / 100 + "em");
-    els.output.style.setProperty("--word-spacing", state.wordSpacing / 100 + "em");
+    els.output.style.setProperty("--letter-spacing", state.letterSpacing / 30 + "em");
+    els.output.style.setProperty("--word-spacing", state.wordSpacing / 25 + "em");
     els.output.style.setProperty("--line-height", state.lineHeight / 10);
     els.output.style.setProperty("--measure", state.measure + "ch");
     els.output.style.setProperty("--font-size", state.fontSize + "px");
