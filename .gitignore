@@ -1,3 +1,4 @@
 node_modules/
 tests/_upload-fixture.txt
 *.log
+demo/clearread-standalone.html
