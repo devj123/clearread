@@ -1,3 +1,5 @@
+import { splitSyllables } from "./syllables.js";
+
 (function () {
   "use strict";
 

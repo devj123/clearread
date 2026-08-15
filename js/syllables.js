@@ -6,7 +6,7 @@
  * splitSyllables("feature") -> ["feat", "ur", "e"]
  * splitSyllables("the")     -> ["the"]  (too short to split)
  */
-function splitSyllables(rawToken) {
+export function splitSyllables(rawToken) {
   const match = rawToken.match(/^([^a-zA-Z]*)([a-zA-Z']+)([^a-zA-Z]*)$/);
   if (!match) return [rawToken];
 
@@ -45,6 +45,3 @@ function splitSyllables(rawToken) {
   return parts;
 }
 
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = { splitSyllables };
-}
