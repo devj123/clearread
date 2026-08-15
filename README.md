@@ -6,6 +6,14 @@ Paste or upload any text and reshape how it looks on the page: typeface, letter 
 
 Try it: open `index.html` in a browser, or read `demo/clearread-standalone.html`, a single self-contained file with no other files needed (fonts and code are inlined).
 
+## Demo
+
+`media/clearread-demo.mp4` is a 29-second captioned screen recording: loading text, switching fonts, widening spacing, syllable marks, all five color themes, the bionic-reading toggle with its "mixed evidence" label visible, the read-aloud button, and a file upload. It's a real recording of the real app, not a mockup.
+
+`media/screenshots/` has five stills: the default view, OpenDyslexic on a cream background with syllable marks on, a dark theme with wide spacing, high-contrast with bionic reading on, and the "why this exists" evidence panel expanded.
+
+One honest caveat about the video: it was recorded in a headless browser with no system text-to-speech voices installed, so the read-aloud segment shows the button and state changes working but not the live word highlighting, which needs an actual voice to drive it. That part works in any normal browser; see `js/app.js`'s `highlightWordAt` for how it's wired to the speech synthesis boundary events.
+
 ## The problem
 
 The International Dyslexia Association estimates that 15–20% of people show some symptom of dyslexia (slow or inaccurate reading, poor spelling, trouble with similar-looking words), while only about 6–7% of students ever receive a formal diagnosis and the accommodations that come with it ([IDA, Dyslexia Basics](https://dyslexiaida.org/dyslexia-basics/)). That gap is most of the point: the other roughly 10% of readers are told nothing is wrong and given nothing to help. Reading friction shows up outside that group too: ADHD readers who lose their place mid-paragraph, tired eyes at 11pm, anyone reading a dense PDF on a phone in bad light.

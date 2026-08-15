@@ -1,0 +1,38 @@
+[
+  {
+    "label": "ClearRead: paste text or upload a file",
+    "t": 0.142
+  },
+  {
+    "label": "Switch typeface, including a bundled dyslexia-friendly font",
+    "t": 2.851
+  },
+  {
+    "label": "Widen letter and word spacing (backed by a controlled study)",
+    "t": 5.284
+  },
+  {
+    "label": "Break long words at syllable marks",
+    "t": 8.496
+  },
+  {
+    "label": "Five color themes, including dark and high-contrast",
+    "t": 11.129
+  },
+  {
+    "label": "Bold word-starts is opt-in and labeled \"mixed evidence,\" not oversold",
+    "t": 15.214
+  },
+  {
+    "label": "Read-aloud button (voices come from your own browser)",
+    "t": 18.175
+  },
+  {
+    "label": "Or upload a .txt file directly",
+    "t": 20.26
+  },
+  {
+    "label": "Built for ReverieHacks 2026, Software Development track",
+    "t": 23.093
+  }
+]
