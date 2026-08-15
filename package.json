@@ -1,0 +1,13 @@
+{
+  "name": "clearread",
+  "version": "1.0.0",
+  "description": "A browser-based reading tool: adjustable fonts, spacing, syllable breaks, and read-aloud, built for the ReverieHacks 2026 Software Development track.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/syllables.test.mjs && node tests/smoke.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  },
+  "license": "MIT"
+}
