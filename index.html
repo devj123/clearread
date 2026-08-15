@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearRead — a reading mode you control</title>
+<meta name="description" content="Paste any text and reshape how it looks: spacing, font, chunking, color, and read-aloud, all adjustable, all running in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#reader">Skip to reading pane</a>
+
+<header class="app-header">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">CR</span>
+    <div>
+      <h1>ClearRead</h1>
+      <p class="tagline">One passage of text, reshaped a dozen honest ways.</p>
+    </div>
+  </div>
+  <button id="aboutToggle" class="ghost-btn" aria-expanded="false" aria-controls="aboutPanel">Why this exists</button>
+</header>
+
+<div id="aboutPanel" class="about-panel" hidden>
+  <p>Roughly 15–20% of people show some symptoms of dyslexia, and only a fraction ever get a formal diagnosis or accommodations (International Dyslexia Association). Reading friction also shows up for ADHD readers who lose their place, for tired eyes at the end of a long day, and for anyone reading on a phone in bad light. Most of the fixes people reach for &mdash; a "dyslexia font," bolded first letters, colored overlays &mdash; have thin or mixed evidence behind them individually. What the research supports more consistently is wider letter and word spacing (Zorzi et al., 2012, <em>PNAS</em>) and simply giving readers control to find what works for their own eyes. ClearRead is built around that: every control is optional, off by default where the evidence is weak, and reversible in one click. See the README for full citations and for what this tool deliberately does not claim.</p>
+</div>
+
+<main>
+  <section class="controls" aria-label="Reading settings">
+    <div class="control-group">
+      <h2>Text</h2>
+      <label class="file-btn" for="fileInput">Upload .txt<input type="file" id="fileInput" accept=".txt" hidden></label>
+      <button id="sampleBtn" class="ghost-btn">Load sample</button>
+      <button id="clearBtn" class="ghost-btn">Clear</button>
+    </div>
+
+    <div class="control-group">
+      <h2>Typeface</h2>
+      <div class="radio-row" role="radiogroup" aria-label="Typeface">
+        <label><input type="radio" name="font" value="system" checked> System sans</label>
+        <label><input type="radio" name="font" value="dyslexic"> OpenDyslexic</label>
+        <label><input type="radio" name="font" value="mono"> Monospace</label>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <h2>Spacing <span class="evidence-chip" title="Backed by Zorzi et al. 2012, PNAS — extra-large letter spacing improved reading speed and reduced errors for children with dyslexia.">evidence-backed</span></h2>
+      <label for="letterSpacing">Letter spacing<output id="letterSpacingVal">0</output></label>
+      <input type="range" id="letterSpacing" min="0" max="12" value="0" step="1">
+      <label for="lineHeight">Line height<output id="lineHeightVal">1.5</output></label>
+      <input type="range" id="lineHeight" min="12" max="28" value="15" step="1">
+      <label for="wordSpacing">Word spacing<output id="wordSpacingVal">0</output></label>
+      <input type="range" id="wordSpacing" min="0" max="16" value="0" step="1">
+    </div>
+
+    <div class="control-group">
+      <h2>Layout</h2>
+      <label for="measure">Line length (characters)<output id="measureVal">65</output></label>
+      <input type="range" id="measure" min="30" max="90" value="65" step="5">
+      <label for="fontSize">Font size<output id="fontSizeVal">19</output></label>
+      <input type="range" id="fontSize" min="14" max="32" value="19" step="1">
+    </div>
+
+    <div class="control-group">
+      <h2>Color theme</h2>
+      <div class="swatch-row" role="radiogroup" aria-label="Color theme">
+        <label class="swatch swatch-default"><input type="radio" name="theme" value="default" checked><span>Default</span></label>
+        <label class="swatch swatch-cream"><input type="radio" name="theme" value="cream"><span>Cream</span></label>
+        <label class="swatch swatch-mint"><input type="radio" name="theme" value="mint"><span>Mint</span></label>
+        <label class="swatch swatch-dark"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+        <label class="swatch swatch-contrast"><input type="radio" name="theme" value="contrast"><span>High contrast</span></label>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <h2>Word helpers <span class="evidence-chip weak" title="Bold-first-letter (&quot;bionic&quot;) reading has weak or no evidence of a speed/comprehension benefit in controlled studies (e.g. Readwise's 2,000-reader test found no gain). Included as an optional, off-by-default try-it — not a recommendation.">mixed evidence</span></h2>
+      <label><input type="checkbox" id="bionicToggle"> Bold word-starts ("bionic" style)</label>
+      <label><input type="checkbox" id="syllableToggle"> Mark syllable breaks (·)</label>
+    </div>
+
+    <div class="control-group">
+      <h2>Read aloud</h2>
+      <div class="tts-row">
+        <button id="playBtn" class="primary-btn" disabled>▶ Play</button>
+        <button id="pauseBtn" class="ghost-btn" disabled>Pause</button>
+        <button id="stopBtn" class="ghost-btn" disabled>Stop</button>
+      </div>
+      <label for="rate">Speech rate<output id="rateVal">1.0×</output></label>
+      <input type="range" id="rate" min="0.5" max="1.6" value="1" step="0.1">
+      <p id="ttsSupport" class="hint"></p>
+    </div>
+  </section>
+
+  <section id="reader" class="reader-pane" aria-label="Reformatted text" tabindex="-1">
+    <p id="placeholder" class="placeholder">Paste or type text below, upload a .txt file, or load the sample to see it reshaped.</p>
+    <div id="output" aria-live="off"></div>
+  </section>
+</main>
+
+<section class="input-pane">
+  <label for="rawInput">Source text</label>
+  <textarea id="rawInput" rows="6" placeholder="Paste a paragraph here…"></textarea>
+</section>
+
+<footer>
+  <p>Everything above runs locally in this page. Nothing you paste is uploaded anywhere. Built for the Software Development track of ReverieHacks 2026.</p>
+</footer>
+
+<script src="js/syllables.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+/* ClearRead — styles
+   Uses a small set of CSS custom properties so the theme swatches and the
+   reader pane can be recolored from JS by swapping one attribute. */
+
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("../fonts/OpenDyslexic-Regular.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("../fonts/OpenDyslexic-Bold.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --panel-bg: #f5f6f8;
+  --border: #d7dbe0;
+  --accent: #2f5fa8;
+  --accent-fg: #ffffff;
+  --muted: #5b6470;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.4;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--accent);
+  color: var(--accent-fg);
+  padding: 0.6rem 1rem;
+  z-index: 10;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 0.75rem; }
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+h1 { font-size: 1.25rem; margin: 0; }
+.tagline { margin: 0.1rem 0 0; color: var(--muted); font-size: 0.9rem; }
+
+.ghost-btn, .primary-btn, .file-btn {
+  border: 1px solid var(--border);
+  background: var(--panel-bg);
+  color: var(--fg);
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.ghost-btn:hover, .file-btn:hover { border-color: var(--accent); }
+.primary-btn { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.primary-btn:disabled, .ghost-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.file-btn { display: inline-block; }
+
+.about-panel {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; }
+}
+
+.controls {
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  position: sticky;
+  top: 1rem;
+}
+.control-group h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.control-group label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  margin-top: 0.4rem;
+}
+.control-group input[type="range"] { width: 100%; }
+.control-group input[type="checkbox"] { margin-right: 0.4rem; }
+.radio-row { display: flex; flex-direction: column; gap: 0.3rem; }
+.radio-row label { justify-content: flex-start; gap: 0.4rem; }
+
+.evidence-chip {
+  font-size: 0.65rem;
+  text-transform: none;
+  letter-spacing: 0;
+  background: #dcecdc;
+  color: #2c5c2c;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  cursor: help;
+}
+.evidence-chip.weak { background: #f2e3c9; color: #7a5b17; }
+
+.swatch-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.swatch input { position: absolute; opacity: 0; }
+.swatch span {
+  display: block;
+  font-size: 0.72rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.4rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.swatch input:checked + span { border-color: var(--accent); }
+.swatch-default span { background: #ffffff; color: #111; border: 2px solid #ccc; }
+.swatch-cream span { background: #fbf0d9; color: #3a2e1e; }
+.swatch-mint span { background: #e3f3ea; color: #1e3a2c; }
+.swatch-dark span { background: #1e1f24; color: #eceef2; }
+.swatch-contrast span { background: #000; color: #ffff00; }
+
+.tts-row { display: flex; gap: 0.5rem; margin-top: 0.3rem; }
+.hint { font-size: 0.78rem; color: var(--muted); margin: 0.4rem 0 0; }
+
+.reader-pane {
+  min-height: 20rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  background: var(--reader-bg, var(--bg));
+  color: var(--reader-fg, var(--fg));
+}
+.reader-pane[data-theme="dark"] { --reader-bg: #1e1f24; --reader-fg: #eceef2; }
+.reader-pane[data-theme="cream"] { --reader-bg: #fbf0d9; --reader-fg: #3a2e1e; }
+.reader-pane[data-theme="mint"] { --reader-bg: #e3f3ea; --reader-fg: #1e3a2c; }
+.reader-pane[data-theme="contrast"] { --reader-bg: #000000; --reader-fg: #ffff00; }
+
+.placeholder { color: var(--muted); font-style: italic; }
+
+#output {
+  max-width: var(--measure, 65ch);
+  font-size: var(--font-size, 19px);
+  line-height: var(--line-height, 1.5);
+  letter-spacing: var(--letter-spacing, 0);
+  word-spacing: var(--word-spacing, 0);
+}
+#output.font-dyslexic { font-family: "OpenDyslexic", sans-serif; }
+#output.font-mono { font-family: "SFMono-Regular", Consolas, monospace; }
+#output.font-system { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+#output p { margin: 0 0 1.1em; }
+.syl { }
+.syl + .syl::before { content: "\00B7"; opacity: 0.55; }
+.bionic-strong { font-weight: 700; }
+.speaking { background: rgba(47, 95, 168, 0.22); border-radius: 0.15em; }
+
+.input-pane {
+  padding: 0 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+.input-pane label { font-size: 0.85rem; color: var(--muted); }
+.input-pane textarea {
+  font: inherit;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  resize: vertical;
+}
+
+footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
