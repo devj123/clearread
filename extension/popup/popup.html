@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cognitive Mode</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="cmp-header">
+    <img src="../icons/icon32.png" alt="" width="20" height="20" />
+    <div class="cmp-header-text">
+      <h1>Cognitive Mode</h1>
+      <p>ClearRead</p>
+    </div>
+    <label class="cmp-switch" title="Turn Cognitive Mode on for this page">
+      <input type="checkbox" id="cm-toggle" />
+      <span class="cmp-slider"></span>
+    </label>
+  </header>
+
+  <section class="cmp-section">
+    <button id="cm-trail-btn" class="cmp-primary-btn">What was I doing?</button>
+    <div id="cm-trail-result" class="cmp-trail-result" hidden>
+      <p id="cm-trail-narration"></p>
+      <div class="cmp-row">
+        <button id="cm-trail-return" class="cmp-btn cmp-btn-accent" hidden>Return to task</button>
+        <button id="cm-trail-dismiss" class="cmp-btn">Dismiss</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp-section">
+    <h2>Current task</h2>
+    <div id="cm-task-active" hidden>
+      <p id="cm-task-label" class="cmp-task-label"></p>
+      <div class="cmp-row">
+        <button id="cm-task-clear" class="cmp-btn">Clear task</button>
+      </div>
+    </div>
+    <div id="cm-task-none">
+      <div class="cmp-row">
+        <input id="cm-task-input" type="text" placeholder="Name this task (optional)" />
+        <button id="cm-task-start" class="cmp-btn cmp-btn-accent">Start</button>
+      </div>
+      <p class="cmp-hint">Marks this tab as home base for "Return to task" and the trail.</p>
+    </div>
+  </section>
+
+  <section class="cmp-section">
+    <div class="cmp-row cmp-space-between">
+      <h2>Mission control</h2>
+      <span id="cm-tab-count" class="cmp-hint"></span>
+    </div>
+    <div id="cm-groups"></div>
+    <div class="cmp-row">
+      <button id="cm-auto-group" class="cmp-btn">Auto-group tabs</button>
+      <button id="cm-suspend-all" class="cmp-btn">Suspend the rest</button>
+    </div>
+    <p id="cm-mc-status" class="cmp-hint" hidden></p>
+  </section>
+
+  <footer class="cmp-footer">
+    <button id="cm-open-options" class="cmp-link-btn">Options</button>
+    <span class="cmp-hint">Shortcuts: Ctrl+Shift+Y / U / K</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

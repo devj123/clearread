@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "ClearRead: Cognitive Mode",
+  "version": "1.0.0",
+  "description": "Reading and focus support for ADHD and dyslexic readers: recover your train of thought, chunk assignments into steps, and see any page in a calmer layout.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options/options.html",
+  "background": {
+    "service_worker": "background/background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "tabGroups",
+    "activeTab",
+    "scripting",
+    "webNavigation",
+    "alarms",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://api.anthropic.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/cm-pill.js"],
+      "css": ["content/cm-pill.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "commands": {
+    "what-was-i-doing": {
+      "suggested_key": { "default": "Ctrl+Shift+Y", "mac": "Command+Shift+Y" },
+      "description": "Reconstruct your trail back to the current task"
+    },
+    "toggle-cognitive-mode": {
+      "suggested_key": { "default": "Ctrl+Shift+U", "mac": "Command+Shift+U" },
+      "description": "Toggle Cognitive Mode overlay on this page"
+    },
+    "chunk-selection": {
+      "suggested_key": { "default": "Ctrl+Shift+K", "mac": "Command+Shift+K" },
+      "description": "Turn the selected text into a step checklist"
+    }
+  },
+  "minimum_chrome_version": "116"
+}

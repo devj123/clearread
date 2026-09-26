@@ -1,0 +1,353 @@
+/* Injected once, on demand, when Cognitive Mode is turned on for a tab.
+   Namespaced under #cm-root and cm- prefixed classes throughout so it
+   can't collide with the host page's styles; the `all: initial` reset on
+   the root container does the same job in the other direction. */
+
+#cm-root {
+  all: initial;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#cm-root * {
+  box-sizing: border-box;
+}
+
+/* ---------- dock ---------- */
+
+.cm-dock {
+  position: fixed;
+  z-index: 2147483646;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #1a1a1a;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cm-dock button {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cm-dock button:hover {
+  background: #2f5fa8;
+}
+
+.cm-dock button.active {
+  background: #2f5fa8;
+}
+
+/* ---------- complexity banner ---------- */
+
+.cm-banner {
+  position: fixed;
+  z-index: 2147483646;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.cm-banner button {
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.cm-banner .cm-show {
+  background: #2f5fa8;
+  color: #fff;
+}
+
+.cm-banner .cm-dismiss {
+  background: transparent;
+  color: #cfd6e0;
+}
+
+/* ---------- reading overlay ---------- */
+
+.cm-reader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: #fff;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.cm-reader-overlay[data-cm-theme="dark"] { background: #1e1f24; color: #eceef2; }
+.cm-reader-overlay[data-cm-theme="cream"] { background: #fbf0d9; color: #3a2e1e; }
+.cm-reader-overlay[data-cm-theme="mint"] { background: #e3f3ea; color: #1e3a2c; }
+.cm-reader-overlay[data-cm-theme="contrast"] { background: #000; color: #ff0; }
+
+.cm-reader-toolbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  z-index: 2;
+}
+
+.cm-reader-toolbar button {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.cm-reader-toolbar button.active {
+  background: #2f5fa8;
+  border-color: #2f5fa8;
+}
+
+.cm-reader-toolbar .cm-close {
+  margin-left: auto;
+  font-size: 15px;
+}
+
+.cm-reader-output {
+  max-width: var(--cm-measure, 65ch);
+  margin: 2.5rem auto;
+  padding: 0 1.5rem 4rem;
+  font-size: var(--cm-font-size, 19px);
+  line-height: var(--cm-line-height, 1.5);
+  letter-spacing: var(--cm-letter-spacing, 0);
+  word-spacing: var(--cm-word-spacing, 0);
+}
+
+.cm-reader-output.font-dyslexic { font-family: "OpenDyslexic", sans-serif; }
+.cm-reader-output.font-mono { font-family: "SFMono-Regular", Consolas, monospace; }
+
+.cm-reader-output h1 { font-size: 1.4em; margin-bottom: 1em; }
+.cm-reader-output p { margin: 0 0 1.1em; }
+.cm-syl + .cm-syl::before { content: "\00B7"; opacity: 0.5; }
+
+/* ---------- working-memory sidebar ---------- */
+
+.cm-sidebar {
+  position: fixed;
+  z-index: 2147483645;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100%;
+  background: #f5f6f8;
+  border-left: 1px solid #d7dbe0;
+  padding: 16px;
+  overflow-y: auto;
+  font-size: 13px;
+  color: #1a1a1a;
+}
+
+.cm-sidebar h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5b6470;
+  margin: 16px 0 6px;
+}
+
+.cm-sidebar h2:first-child {
+  margin-top: 0;
+}
+
+.cm-sidebar .cm-chip {
+  display: inline-block;
+  background: #e2e8f2;
+  border-radius: 999px;
+  padding: 2px 9px;
+  margin: 0 4px 4px 0;
+  font-size: 12px;
+}
+
+.cm-sidebar .cm-refresh {
+  width: 100%;
+  margin-top: 14px;
+  padding: 6px;
+  border: 1px solid #d7dbe0;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cm-sidebar .cm-mode-badge {
+  font-size: 10.5px;
+  color: #5b6470;
+  margin-bottom: 4px;
+}
+
+/* ---------- attention-aware summary panel ---------- */
+
+.cm-summary-panel {
+  position: fixed;
+  z-index: 2147483647;
+  top: 60px;
+  right: 20px;
+  width: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  color: #1a1a1a;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.cm-summary-panel h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5b6470;
+  margin: 12px 0 6px;
+}
+
+.cm-summary-panel h2:first-of-type {
+  margin-top: 0;
+}
+
+.cm-summary-close {
+  float: right;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: #5b6470;
+}
+
+/* ---------- chunk overlay ---------- */
+
+.cm-chunk-overlay {
+  position: fixed;
+  z-index: 2147483647;
+  bottom: 20px;
+  left: 20px;
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  color: #1a1a1a;
+}
+
+.cm-chunk-overlay h2 {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.cm-chunk-step {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 5px 0;
+  font-size: 13.5px;
+}
+
+.cm-chunk-step.done label {
+  text-decoration: line-through;
+  color: #8b93a0;
+}
+
+.cm-chunk-close {
+  float: right;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: #5b6470;
+}
+
+.cm-loading {
+  color: #5b6470;
+  font-size: 13px;
+}
+
+.cm-error {
+  color: #a33;
+  font-size: 12.5px;
+  background: #fde;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+/* ---------- trail card ---------- */
+
+.cm-trail-card {
+  position: fixed;
+  z-index: 2147483647;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  color: #1a1a1a;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.cm-trail-card h2 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.cm-trail-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.cm-trail-actions button {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 12.5px;
+}
+
+.cm-trail-return {
+  background: #2f5fa8;
+  color: #fff;
+}
+
+.cm-trail-dismiss {
+  background: #eee;
+  color: #333;
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cognitive Mode Options</title>
+<link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="cmo-page">
+    <header class="cmo-header">
+      <img src="../icons/icon48.png" alt="" width="32" height="32" />
+      <div>
+        <h1>ClearRead: Cognitive Mode</h1>
+        <p>Options</p>
+      </div>
+    </header>
+
+    <section class="cmo-section">
+      <h2>Reading profile</h2>
+      <p class="cmo-hint">
+        Applies to the reading overlay on any page. This is the same profile the popup, the dock, and every page
+        share, so changing it here changes it everywhere.
+      </p>
+
+      <div class="cmo-field">
+        <label for="opt-font">Font</label>
+        <select id="opt-font">
+          <option value="system">System default</option>
+          <option value="dyslexic">OpenDyslexic</option>
+          <option value="mono">Monospace</option>
+        </select>
+      </div>
+
+      <div class="cmo-field">
+        <label for="opt-theme">Theme</label>
+        <select id="opt-theme">
+          <option value="default">Light</option>
+          <option value="cream">Cream</option>
+          <option value="mint">Mint</option>
+          <option value="dark">Dark</option>
+          <option value="contrast">High contrast</option>
+        </select>
+      </div>
+
+      <div class="cmo-field">
+        <label for="opt-font-size">Font size <span id="opt-font-size-val"></span></label>
+        <input type="range" id="opt-font-size" min="14" max="32" step="1" />
+      </div>
+
+      <div class="cmo-field">
+        <label for="opt-line-height">Line height <span id="opt-line-height-val"></span></label>
+        <input type="range" id="opt-line-height" min="10" max="24" step="1" />
+      </div>
+
+      <div class="cmo-field">
+        <label for="opt-letter-spacing">Letter spacing <span id="opt-letter-spacing-val"></span></label>
+        <input type="range" id="opt-letter-spacing" min="0" max="30" step="1" />
+      </div>
+
+      <div class="cmo-field">
+        <label for="opt-word-spacing">Word spacing <span id="opt-word-spacing-val"></span></label>
+        <input type="range" id="opt-word-spacing" min="0" max="25" step="1" />
+      </div>
+
+      <div class="cmo-field">
+        <label for="opt-measure">Line width <span id="opt-measure-val"></span></label>
+        <input type="range" id="opt-measure" min="40" max="90" step="1" />
+      </div>
+
+      <div class="cmo-field cmo-checkbox-field">
+        <label><input type="checkbox" id="opt-bionic" /> Bionic reading (bold word starts)</label>
+      </div>
+
+      <div class="cmo-field cmo-checkbox-field">
+        <label><input type="checkbox" id="opt-syllables" /> Syllable marks</label>
+      </div>
+
+      <div class="cmo-actions">
+        <button id="opt-save-profile" class="cmo-btn cmo-btn-accent">Save profile</button>
+        <button id="opt-reset-profile" class="cmo-btn">Reset to defaults</button>
+        <span id="opt-profile-status" class="cmo-status"></span>
+      </div>
+    </section>
+
+    <section class="cmo-section">
+      <h2>AI features (optional)</h2>
+      <p class="cmo-hint">
+        Off by default. ClearRead's rule is nothing leaves your browser -- these three features are the one
+        exception, and only when you turn this on and supply your own API key. Everything else in Cognitive Mode
+        ("What was I doing?", the working-memory sidebar's default view, mission control, the complexity detector)
+        runs entirely on-device with no network calls, key or no key. See <code>PRIVACY.md</code> in the extension
+        folder for the full accounting of what gets sent, when, and to which provider.
+      </p>
+      <p class="cmo-hint">Turning this on enables: Chunk this task, the sidebar's "Enhance with AI" button, and attention-aware summaries.</p>
+
+      <div class="cmo-field cmo-checkbox-field">
+        <label><input type="checkbox" id="opt-ai-enabled" /> Enable AI features</label>
+      </div>
+
+      <div id="opt-ai-fields" class="cmo-ai-fields">
+        <div class="cmo-field">
+          <label for="opt-ai-provider">Provider</label>
+          <select id="opt-ai-provider">
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic</option>
+          </select>
+        </div>
+
+        <div class="cmo-field">
+          <label for="opt-ai-key">API key</label>
+          <input type="password" id="opt-ai-key" placeholder="sk-..." autocomplete="off" />
+          <p class="cmo-hint">
+            Stored only in this browser's local extension storage (<code>chrome.storage.local</code>), never synced,
+            never sent anywhere except directly to your chosen provider's API when you use an AI feature.
+          </p>
+        </div>
+
+        <div class="cmo-field">
+          <label for="opt-ai-model">Model <span class="cmo-optional">(optional)</span></label>
+          <input type="text" id="opt-ai-model" placeholder="Uses a sensible default if left blank" />
+        </div>
+      </div>
+
+      <div class="cmo-actions">
+        <button id="opt-save-ai" class="cmo-btn cmo-btn-accent">Save AI settings</button>
+        <span id="opt-ai-status" class="cmo-status"></span>
+      </div>
+    </section>
+
+    <footer class="cmo-footer">
+      <p>ClearRead: Cognitive Mode v1.0.0 -- built for ReverieHacks 2026</p>
+    </footer>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>
